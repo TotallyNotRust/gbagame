@@ -1,0 +1,14 @@
+{
+    "Sprite": "graphics/pokemon_no_001.aseprite",
+    "Animations": [
+        "Battle"
+    ],
+    "Moves": {
+        "Scratch": {
+            "learned_at": 1
+        },
+        "Howl": {
+            "learned_at": 5
+        }
+    }
+}
