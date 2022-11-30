@@ -1,0 +1,16 @@
+{
+    "Scratch": {
+        "type": "Damage",
+        "effect": {
+            "damage": "100"
+        },
+        "accuracy": 100
+    },
+    "Howl": {
+        "type": "Status",
+        "effect": {
+            "target": "enemy",
+            "attack": -1
+        }
+    }
+}

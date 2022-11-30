@@ -14,22 +14,51 @@
 #![cfg_attr(test, reexport_test_harness_main = "test_main")]
 #![cfg_attr(test, test_runner(agb::test_runner::test_runner))]
 
-use agb::{display, syscall};
+use core::panic;
+
+mod pokemon_data;
+
+use agb::{
+    display,
+    display::object::{self, Graphics, Object, Tag},
+    include_aseprite,
+    input::{self, Button, ButtonController},
+    syscall,
+};
+
+const POKEMON_001: &Graphics = include_aseprite!("graphics/pokemon_no_001.aseprite");
 
 // The main function must take 1 arguments and never return. The agb::entry decorator
 // ensures that everything is in order. `agb` will call this after setting up the stack
 // and interrupt handlers correctly. It will also handle creating the `Gba` struct for you.
 #[agb::entry]
 fn main(mut gba: agb::Gba) -> ! {
-    let mut bitmap = gba.display.video.bitmap3();
+    let object = gba.display.object.get();
+    // let mut pkmn_object = object.object_sprite(POKEMON_001.tags().get("battle").sprite(0));
+    // let pkmn = MushroomMan::init(
+    //     POKEMON_001,
+    //     MushroomMan::MushroomManAnimation::Battle,
+    //     Some(0),
+    //     Some(0),
+    // );
+    let pokemon =
+        <pokemon_data::MusroomMan::MushroomMan as pokemon_data::pokemon_struct::PokemonImpl>::new(
+            5,
+        );
 
-    for x in 0..display::WIDTH {
-        let y = syscall::sqrt(x << 6);
-        let y = (display::HEIGHT - y).clamp(0, display::HEIGHT - 1);
-        bitmap.draw_point(x, y, 0x001F);
-    }
+    let pkmn_object = object.object_sprite(
+        pokemon
+            .pokemon
+            .pokemon
+            .graphics
+            .tags()
+            .get("battle")
+            .sprite(0),
+    );
 
     loop {
-        syscall::halt();
+        // pkmn.move_by_vel(0, 0);
+
+        object.commit();
     }
 }

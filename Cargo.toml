@@ -8,6 +8,9 @@ edition = "2018"
 
 [dependencies]
 agb = "0.12.2"
+lite-json = { version = "0.2.0", default-features = false, defaults = [
+    "no_std",
+] }
 
 [profile.dev]
 opt-level = 2
